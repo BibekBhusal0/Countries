@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState, useEffect, useDeferredValue } from "react";
 import Graph from "./bars";
+import { FaSearch } from "react-icons/fa";
+import Footer from "./footer";
 
 function Data({ text, data }) {
   return (
@@ -37,19 +39,7 @@ function Country({
   );
 }
 
-function Countries({ countries }) {
-  const all_countries = countries.map((country) => (
-    <Country key={country.name.common} country={country} />
-  ));
-
-  return (
-    <div className="  bg-orange-200 py-20 w-full mx-auto justify-center flex flex-wrap  gap-6  px-10 lg:px-0 md:px-0 xl:px-0 ">
-      {all_countries}
-    </div>
-  );
-}
-
-function App() {
+function Countries() {
   const [Data, setData] = useState([]);
   const [Name, setName] = useState("");
   const differedName = useDeferredValue(Name);
@@ -82,8 +72,10 @@ function App() {
     getData();
   }, [differedName]);
   return (
-    <div className="mx-auto relative   sm:w-full lg:w-10/12 md:w-11/12 xl:w-10/12">
-      <header className=" bg-orange-200 w-full px-4 py-20 tetx-center ">
+    <>
+      <header
+        id="top"
+        className=" bg-orange-200 w-full px-4 py-20 tetx-center ">
         <h1 className=" sm:text-4xl text-4xl  md:text-5xl lg:text-7xl font-bold  text-center xl:text-7xl ">
           World Countries
         </h1>
@@ -92,17 +84,32 @@ function App() {
           <br />
         </div>
       </header>
-      <section className=" mx-auto my-10 border-gray-500 border-2 px-10 py-3 lg:w-96 md:w-80 w-10/12 rounded-full">
+      <section className=" mx-auto my-10  border-gray-500 border-2 px-10 py-3 lg:w-96 md:w-80 w-10/12 rounded-full flex gap-3 pl-3 justify-center align-middle">
+        <FaSearch className="  text-3xl text-gray-300 " />
         <input
           className=" w-full focus:border-transparent focus:outline-none text-lg"
           type="text"
           value={Name}
-          placeholder="search country"
+          placeholder="Search Country"
           onChange={handleChange}
         />
       </section>
+
+      <div className="  bg-orange-200 py-20 w-full mx-auto justify-center flex flex-wrap  gap-6  px-10 lg:px-0 md:px-0 xl:px-0 ">
+        {filterData().map((country) => (
+          <Country country={country} />
+        ))}
+      </div>
       <Graph data={filterData()} />
-      <Countries countries={filterData()} />
+    </>
+  );
+}
+
+function App() {
+  return (
+    <div className="mx-auto relative sm:w-full lg:w-10/12 md:w-11/12 xl:w-10/12  scroll-smooth ">
+      <Countries />
+      <Footer />
     </div>
   );
 }

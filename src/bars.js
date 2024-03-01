@@ -4,14 +4,16 @@ function Bar({ country }) {
   const width = (country.population / totalPopulation) * 100;
 
   return (
-    <tr className=" w-full align-middle ">
-      <td className=" w-1/12 ">{country.name.common}</td>
-      <td className="relative text-left w-4/5 bg-yellow-100">
+    <tr className=" w-full ">
+      <td className=" w-1/12 text-lg py-2 ">{country.name.common}</td>
+      <td className="relative text-left  py-2  w-4/5">
         <div
-          className=" bg-blue-600 h-10  rounded-md "
+          className=" bg-blue-600 h-10 rounded-md "
           style={{ width: `${width}%` }}></div>
       </td>
-      <td className=" w-1/5"> {country.population}</td>
+      <td className=" w-1/5 text-lg pl-1 py-2">
+        {country.population.toLocaleString()}
+      </td>
     </tr>
   );
 }
@@ -23,8 +25,8 @@ function Graph({ data }) {
   }
 
   return (
-    <table>
-      <tbody className=" relative my-8p py-8 px-4  w-full">
+    <table className="my-20">
+      <tbody className=" relative  px-4  w-full">
         <Bar
           country={{ name: { common: "World " }, population: totalPopulation }}
         />
