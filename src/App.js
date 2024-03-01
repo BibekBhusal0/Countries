@@ -39,7 +39,7 @@ function Country({
 
 function Countries({ countries }) {
   const all_countries = countries.map((country) => (
-    <Country country={country} />
+    <Country key={country.name.common} country={country} />
   ));
 
   return (
@@ -60,9 +60,8 @@ function App() {
       country.name.common.toLowerCase().includes(differedName.toLowerCase())
     );
 
-    const sorted_data = filteredCountries.sort(
-      (a, b) => b.name.common.length - a.name.common.length
-      // a.name.common.localeCompare(b.name.common)
+    const sorted_data = filteredCountries.sort((a, b) =>
+      a.name.common.localeCompare(b.name.common)
     );
     return sorted_data;
   };
@@ -76,6 +75,7 @@ function App() {
     } catch (error) {
       console.log(error);
     }
+    console.log("getting data");
   };
 
   useEffect(() => {
